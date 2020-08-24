@@ -12,31 +12,34 @@ resource "azurerm_storage_account" "web_sa" {
   account_replication_type = "GRS"
   allow_blob_public_access = true
   enable_https_traffic_only = false
-  custom_domain {
-    name = "dom.routley.info"
-    use_subdomain = true
-  }
+
+  # custom_domain {
+  #   name = "dom.routley.info"
+  #   # use_subdomain = true
+  # }
+
   static_website {
     index_document = "index.html"
-    # error_404_document = ""
+    error_404_document = "404.html"
   }
 }
 
-# resource "azurerm_cdn_profile" "web_cdn_profile" {
-#   name                = "website-cdn"
-#   location            = var.cdn_location
-#   resource_group_name = azurerm_resource_group.web_rg.name
-#   sku                 = "Standard_Microsoft"
-# }
+resource "azurerm_cdn_profile" "web_cdn_profile" {
+  name                = "website-cdn"
+  location            = var.cdn_location
+  resource_group_name = azurerm_resource_group.web_rg.name
+  sku                 = "Standard_Microsoft"
+}
 
-# resource "azurerm_cdn_endpoint" "web_cdn_endpoint" {
-#   name                = "web-cdn-endpoint"
-#   profile_name        = azurerm_cdn_profile.web_cdn_profile.name
-#   location            = var.cdn_location
-#   resource_group_name = azurerm_resource_group.web_rg.name
+resource "azurerm_cdn_endpoint" "web_cdn_endpoint" {
+  name                = "dom"
+  profile_name        = azurerm_cdn_profile.web_cdn_profile.name
+  location            = var.cdn_location
+  resource_group_name = azurerm_resource_group.web_rg.name
 
-#   origin {
-#     name      = "web-origin"
-#     host_name = azurerm_storage_account.web_sa.primary_web_host
-#   }
-# }
+  origin_host_header = azurerm_storage_account.web_sa.primary_web_host
+  origin {
+    name      = "web-origin"
+    host_name = azurerm_storage_account.web_sa.primary_web_host
+  }
+}
