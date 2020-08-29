@@ -21,6 +21,8 @@ Infrastructure for a static hosted website in Azure.
 
 1. Clone this repository and edit the `terraform.tfvars` file to contain your own variables. Also edit the `terraform.tf` file to change the backend resource group name, storage account name, and container name to the values you used in the last step.
 
+1. [Install Terraform](https://www.terraform.io/downloads.html), you will need at least version 0.13.0
+
 1. Run `terraform init` to initilise Terraform and create the remote statefile.
 
 1. Run `terrafrom plan` to see what will happen when Terrafrom is applied.
