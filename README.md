@@ -34,3 +34,20 @@ Infrastructure for a static hosted website in Azure.
     1. If you want to remove the infrastructure compleatly you can run `terrafrom destroy`
 
 1. You can now upload files to your new storage account manually or through the CLI, the storage account will have an auto-created container called `$web` for you to put files into that will be served when the endpoint is hit.
+
+## How to add a custom domain
+Azurerm Terrafrom provider does not currently support adding a custom domain to a CDN. But you can do it via the CLI.
+
+1. Setup a CNAME record from your domain name provider to your endpoint.
+
+1. Run
+
+    `az cdn custom-domain create -g website-rg --endpoint-name yourendpointname --profile-name website-cdn -n arbitraryname --hostname your.custom.domain.name`
+
+    If you have changed the CDN profile name or resource group name in the Terraform code you will also need to change it here.
+
+    If there are major changes made to the CDN profile/endpoint by Terraform after this is ran then the custom domain will be deleted, as it is not tracked by the Terraform statefile.
+
+1. (Optional) (Although why would you not) Enable https on your custom domain by also running the command:
+
+    `az cdn custom-domain enable-https -g website-rg --profile-name website-cdn --endpoint-name yourendpointname -n thearbitrarynameofyourcustomdomainenteredinthelastcommand --min-tls-version 1.2`
