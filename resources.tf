@@ -32,6 +32,13 @@ resource "azurerm_cdn_endpoint" "web_cdn_endpoint" {
   location            = var.cdn_location
   resource_group_name = azurerm_resource_group.web_rg.name
 
+  global_delivery_rule {
+    cache_expiration_action {
+      behavior = "Override"
+      duration = "00:00:10"
+    }
+  }
+
   origin_host_header = azurerm_storage_account.web_sa.primary_web_host
   origin {
     name      = "web-origin"
