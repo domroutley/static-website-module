@@ -1,5 +1,4 @@
 output "endpoint_web_url" {
-
   value = "https://${var.endpoint}.azureedge.net/"
 }
 
