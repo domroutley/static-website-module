@@ -1,0 +1,30 @@
+name: Acceptance
+on: pull_request
+
+jobs:
+  Acceptance:
+    name: Acceptance
+    runs-on: ubuntu-18.04
+    env:
+      TF_IN_AUTOMATION: true
+      TF_CLI_ARGS: -no-color
+    steps:
+      - name: Checkout
+        uses: actions/checkout@2
+
+      - name: Get Terraform version
+        run: echo "TF_VER=$(cat .terraform-version)" >> $GITHUB_ENV
+
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TF_VER }}
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive -diff
+
+      - name: Terraform init
+        run: terraform init -backend=false
+
+      - name: Terraform validate
+        run: terraform validate
