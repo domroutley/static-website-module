@@ -10,7 +10,7 @@ jobs:
       TF_CLI_ARGS: -no-color
     steps:
       - name: Checkout
-        uses: actions/checkout@2
+        uses: actions/checkout@v2
 
       - name: Get Terraform version
         run: echo "TF_VER=$(cat .terraform-version)" >> $GITHUB_ENV
