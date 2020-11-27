@@ -1,5 +1,5 @@
 # Static Website Infrastructure
-Infrastructure for a static hosted website in Azure.
+Infrastructure module for a static hosted website in Azure.
 
 ## How to implement
 
@@ -12,14 +12,35 @@ Infrastructure for a static hosted website in Azure.
     You can either do this via the [Azure Portal](https://portal.azure.com), or through the CLI with the following commands:
 
     ```bash
-    az group create -n tf-states-rg -l uksouth
+    az group create -n [resource group name] -l [location, e.g uksouth]
 
-    az storage account create -n storageaccountname -g tf-states-rg -l uksouth --sku standard_LRS
+    az storage account create -n [storage account name] -g [resource group name] -l [location] --sku standard_LRS
 
-    az storage container create -n tfstate --account-name [agloballyuniquestorageaccountnamehere]
+    az storage container create -n [container name] --account-name [storage account name]
     ```
 
-1. Clone this repository and edit the `terraform.tfvars` file to contain your own variables. Also edit the `terraform.tf` file to change the backend resource group name, storage account name, and container name to the values you used in the last step.
+1. Create a `main.tf` (or whatever name you like) file that looks liek the following:
+
+    ```terraform
+    module "website" {
+      source               = "github.com/domroutley/website-infrastructure"
+      endpoint             = "[put your endpoint name here]"
+      storage_account_name = "[put a new unique new storage account name here]"
+    }
+
+    terraform {
+      backend "azurerm" {
+        resource_group_name  = "[the resource group you created in the last step]"
+        storage_account_name = "[the storage account you created in the last step]"
+        container_name       = "[the container you created in the last step]"
+        key                  = "tfstate"
+      }
+    }
+
+    provider "azurerm" {
+      features {}
+    }
+    ```
 
 1. [Install Terraform](https://www.terraform.io/downloads.html), you will need at least version 0.13.0
 
