@@ -63,7 +63,7 @@ The [Azurerm Terraform provider](https://www.terraform.io/docs/providers/azurerm
 
 1. Run
 
-    `az cdn custom-domain create -g website-rg --endpoint-name yourendpointname --profile-name website-cdn -n arbitraryname --hostname your.custom.domain.name`
+    `az cdn custom-domain create -g website-rg --endpoint-name [your endpoint name] --profile-name website-cdn -n [arbitrary name] --hostname [your.custom.domain.name]`
 
     If you have changed the CDN profile name or resource group name in the Terraform code you will also need to change it here.
 
@@ -71,4 +71,4 @@ The [Azurerm Terraform provider](https://www.terraform.io/docs/providers/azurerm
 
 1. (Optional) (Although why would you not) Enable https on your custom domain by also running the command:
 
-    `az cdn custom-domain enable-https -g website-rg --profile-name website-cdn --endpoint-name yourendpointname -n [thearbitrarynameofyourcustomdomainenteredinthelastcommand] --min-tls-version 1.2`
+    `az cdn custom-domain enable-https -g website-rg --profile-name website-cdn --endpoint-name yourendpointname -n [the arbitrary name of your custom domain entered in the last command] --min-tls-version 1.2`
