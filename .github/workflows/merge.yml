@@ -24,7 +24,7 @@ jobs:
         run: terraform fmt -check -recursive -diff
 
       - name: Intert placeholder provider block
-        run: echo 'provider "azurerm" {features{}}' >> provider.tf
+        run: echo 'provider "azurerm" { features {} }' >> provider.tf
 
       - name: Terraform init
         run: terraform init -backend=false
