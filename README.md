@@ -19,7 +19,7 @@ Infrastructure module for a static hosted website in Azure.
     az storage container create -n [container name] --account-name [storage account name]
     ```
 
-1. Create a `main.tf` (or whatever name you like) file that looks liek the following:
+1. Create a `main.tf` (or whatever name you like) file that looks like the following:
 
     ```terraform
     module "website" {
