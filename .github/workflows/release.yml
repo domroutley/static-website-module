@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   release:
-    name: Release
+    name: 'Make Release'
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
@@ -20,3 +20,20 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release@17
+
+  wiki:
+    name: 'Update wiki'
+    runs-on: ubuntu-18.04
+    steps:
+      - name: 'Checkout self'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Checkout wiki'
+        uses: actions/checkout@v2
+        with:
+          repository: ${{github.repository}}.wiki
+          fetch-depth: 0
+      # Need to test this, need to grab output and send to md file in wiki repo
+      # - name: Generate wiki
+      #   uses: docker://quay.io/terraform-docs/terraform-docs@0.10.1
