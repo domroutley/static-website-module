@@ -1,7 +1,7 @@
 # User Guide
 
 Basic usage overview for implementing the module.</br>
-For a more technical documentation see [the wiki](./https://github.com/domroutley/static-website-module/wiki).
+For a more technical documentation see [the wiki](https://github.com/domroutley/static-website-module/wiki).
 
 ## Step-by-step how to implement
 
