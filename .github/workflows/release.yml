@@ -34,6 +34,26 @@ jobs:
         with:
           repository: ${{github.repository}}.wiki
           fetch-depth: 0
-      # Need to test this, need to grab output and send to md file in wiki repo
-      # - name: Generate wiki
-      #   uses: docker://quay.io/terraform-docs/terraform-docs@0.10.1
+          path: wiki
+      - name: Render terraform docs
+        uses: Dirrk/terraform-docs@v1.0.8
+        with:
+          tf_docs_output_method: replace
+          tf_docs_content_type: table
+          tf_docs_output_file: wiki/Home.md
+      - name: Push docs changes to wiki
+        run: |
+          git status
+          doCommit=$(git diff-index --quiet HEAD -- || echo true)
+          echo $doCommit
+          if [ $doCommit ]
+          then
+            git config user.name terraform-docs
+            git config user.email actions@github.com
+            git add Home.md
+            git commit -m "Updated documentation"
+            git push
+          else
+            echo "No changes to be commited."
+          fi
+        working-directory: wiki/
