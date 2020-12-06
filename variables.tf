@@ -1,3 +1,11 @@
+variable "endpoint" {
+  description = "CDN endpoint name (XX.azureedge.net)"
+}
+
+variable "storage_account_name" {
+  description = "The name of the storage account, must be globaly unique."
+}
+
 variable "location" {
   default     = "UK South"
   description = "Location for the resource group and storage account."
@@ -8,10 +16,10 @@ variable "cdn_location" {
   description = "Location for the CDN profile and endpoint."
 }
 
-variable "endpoint" {
-  description = "CDN endpoint name (XX.azureedge.net)"
-}
-
-variable "storage_account_name" {
-  description = "The name of the storage account, must be globaly unique"
+variable "sa_replication_type" {
+  description = <<EOF
+  The storage account replication type.
+  Valid values: LRS, ZRS, GRS, RA-GRS
+  EOF
+  default = "LRS"
 }
