@@ -17,17 +17,14 @@ variable "cdn_location" {
 }
 
 variable "sa_replication_type" {
-  description = <<EOF
-  The storage account replication type.
-  Valid values: LRS, ZRS, GRS, RA-GRS
-  EOF
+  description = "The storage account replication type. Valid values are: LRS, ZRS, GRS, RA-GRS"
   default     = "LRS"
   validation {
     condition = contains(
       ["LRS", "ZRS", "GRS", "RA-GRS"],
       var.sa_replication_type
     )
-    error_message = "sa_replication_type must be one of: LRS, ZRS, GRS, RA-GRS"
+    error_message = "Variable sa_replication_type must be one of: LRS, ZRS, GRS, RA-GRS."
   }
 }
 
