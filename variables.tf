@@ -30,3 +30,8 @@ variable "sa_replication_type" {
     error_message = "sa_replication_type must be one of: LRS, ZRS, GRS, RA-GRS"
   }
 }
+
+variable "resource_group_name" {
+  description = "The name of the resource group to store all resources in."
+  default = "website-rg"
+}
