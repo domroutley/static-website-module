@@ -15,7 +15,7 @@ resource "azurerm_cdn_endpoint" "web_cdn_endpoint" {
     cache_expiration_action {
       # Cache website for 10 seconds
       behavior = "Override"
-      duration = "00:00:10"
+      duration = var.cache_expiration_time
     }
     modify_response_header_action {
       # Add header to response

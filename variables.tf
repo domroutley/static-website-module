@@ -32,3 +32,8 @@ variable "resource_group_name" {
   description = "The name of the resource group to store all resources in."
   default     = "website-rg"
 }
+
+variable "cache_expiration_time" {
+  description = "How long the CDN endpoint will cache pages for."
+  default     = "00:00:10"
+}
