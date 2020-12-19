@@ -21,7 +21,7 @@ variable "sa_replication_type" {
   The storage account replication type.
   Valid values: LRS, ZRS, GRS, RA-GRS
   EOF
-  default = "LRS"
+  default     = "LRS"
   validation {
     condition = contains(
       ["LRS", "ZRS", "GRS", "RA-GRS"],
@@ -33,5 +33,5 @@ variable "sa_replication_type" {
 
 variable "resource_group_name" {
   description = "The name of the resource group to store all resources in."
-  default = "website-rg"
+  default     = "website-rg"
 }
