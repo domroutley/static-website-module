@@ -22,4 +22,11 @@ variable "sa_replication_type" {
   Valid values: LRS, ZRS, GRS, RA-GRS
   EOF
   default = "LRS"
+  validation {
+    condition = contains(
+      ["LRS", "ZRS", "GRS", "RA-GRS"],
+      var.sa_replication_type
+    )
+    error_message = "sa_replication_type must be one of: LRS, ZRS, GRS, RA-GRS"
+  }
 }
